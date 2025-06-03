@@ -1,0 +1,29 @@
+﻿@model List<WebBanHang.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <!-- Cột trái: Danh sách thể loại -->
+    <div class="col-md-3">
+        <h3>DANH MỤC</h3>
+        <div id="Category-List">
+            <!-- Danh sách thể loại sẽ được load bằng AJAX -->
+        </div>
+    </div>
+
+    <!-- Cột phải: Danh sách sản phẩm -->
+    <div class="col-md-9">
+        <h3>SẢN PHẨM</h3>
+        <partial name="_ProductPartial" model="Model" />
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Category-List").load("/Customer/Product/GetCategory");
+        });
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model List<WebBanHang.Models.Product> // Gán kiểu dữ liệu truyền vào View là danh sách sản phẩm
+// Kiểm tra nếu Model khác null và có ít nhất 1 sản phẩm
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row">
+        <!-- Bắt đầu dòng sản phẩm -->
+        @foreach (var p in Model) // Duyệt qua từng sản phẩm trong danh sách
+        {
+            <div class="col-md-4 mb-4">
+                <!-- Mỗi sản phẩm chiếm 1/3 dòng, cách dưới 1 khoảng -->
+                <div class="card h-100">
+                    <!-- Thẻ card Bootstrap, chiều cao bằng nhau -->
+                    <!-- Kiểm tra nếu có hình ảnh thì hiển thị -->
+                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                    {
+                        <img src="/@p.ImageUrl" class="card-img-top" alt="@p.Name"
+                             style="height: 340px; object-fit: cover;" />
+                        <!-- Ảnh nằm đầu card, bo kín chiều cao 340px, không bị méo ảnh -->
+                    }
+
+                    <!-- Phần nội dung của sản phẩm -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@p.Name</h5> <!-- Tên sản phẩm -->
+                        <p class="card-text">
+                            <strong>Giá:</strong> @p.Price.ToString("N0") đ <!-- Giá sản phẩm có định dạng -->
+                        </p>
+                    </div>
+
+                    <!-- Nút hành động: Xem chi tiết và thêm vào giỏ hàng -->
+                    <div class="card-footer d-flex justify-content-center gap-2">
+                        <a href="#" class="btn btn-sm btn-outline-dark">Chi tiết</a>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Thêm vào giỏ</a>
+                    </div>
+
+                    <!-- Hiển thị tên thể loại/danh mục -->
+                    <div class="card-footer text-muted text-center" style="font-size: 0.9rem;">
+                        Thể loại: @p.Category?.Name
+                        <!-- Dùng ?. để tránh lỗi nếu Category null -->
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <!-- Nếu không có sản phẩm nào thì hiển thị thông báo -->
+    <div class="alert alert-info">
+        Không có sản phẩm nào được hiển thị.
+    </div>
+}

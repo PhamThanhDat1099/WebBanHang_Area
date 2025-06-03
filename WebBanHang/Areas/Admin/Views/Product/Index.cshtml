@@ -1,0 +1,51 @@
+﻿@model List<WebBanHang.Models.Product>
+
+<partial name="_Notification" />
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>LIST PRODUCT</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-controller="Product" asp-action="Add" class="btn btn-success">
+            <i class="bi bi-plus-circle-dotted"></i> Add new
+        </a>
+    </div>
+</div>
+
+<!-- AJAX content target -->
+<div id="productList">
+    @Html.Partial("_ProductListPartial", Model)
+</div>
+
+<!-- Phân trang AJAX -->
+<div>
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="#" onclick="loadPage(1); return false;">&laquo;</a>
+        </li>
+        @for (var i = 1; i <= (int)ViewBag.PageSum; i++)
+        {
+            <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                <a class="page-link" href="#" onclick="loadPage(@i); return false;">@i</a>
+            </li>
+        }
+        <li class="page-item @(ViewBag.CurrentPage == ViewBag.PageSum ? "disabled" : "")">
+            <a class="page-link" href="#" onclick="loadPage(@ViewBag.PageSum); return false;">&raquo;</a>
+        </li>
+    </ul>
+</div>
+
+@section Scripts {
+    <script>
+        function loadPage(page) {
+            $.ajax({
+                url: '@Url.Action("Index", "Product")?page=' + page,
+                type: 'GET',
+                success: function (result) {
+                    $('#productList').html(result);
+                }
+            });
+        }
+    </script>
+}

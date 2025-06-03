@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <!-- Bắt đầu một dòng Bootstrap để chia lưới sản phẩm -->
+    @foreach (var p in Model) // Duyệt qua từng sản phẩm trong danh sách Model
+    {
+        <div class="col-md-3 mb-4">
+            <!-- Mỗi sản phẩm chiếm 3 cột (tổng 12 cột = 1 hàng), có khoảng cách dưới -->
+            <div class="card h-100">
+                <!-- Thẻ card Bootstrap, h-100 để các card có chiều cao đều nhau -->
+                <!-- Tiêu đề của card là tên sản phẩm -->
+                <h5 class="card-header">@p.Name</h5>
+
+                <div class="card-body">
+                    <!-- Hiển thị giá sản phẩm và định dạng theo kiểu 1,000 -->
+                    <h6 class="card-title">Price: @p.Price.ToString("N0")</h6>
+                </div>
+
+                <!-- Kiểm tra nếu có ảnh thì hiển thị ảnh sản phẩm -->
+                @if (!string.IsNullOrEmpty(p.ImageUrl))
+                {
+                    <img src="@p.ImageUrl" class="img-fluid" /> <!-- Ảnh co giãn tự động theo khung -->
+                }
+
+                <div class="card-body">
+                    <!-- Nút chi tiết sản phẩm -->
+                    <a href="#" class="btn btn-outline-dark me-2">Detail</a>
+                    <!-- Nút thêm vào giỏ hàng -->
+                    <a href="#" class="btn btn-outline-info">Add To Cart</a>
+                </div>
+
+                <!-- Phần chân card hiển thị tên danh mục sản phẩm -->
+                <div class="card-footer text-muted">
+                    Category: @p.Category.Name
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

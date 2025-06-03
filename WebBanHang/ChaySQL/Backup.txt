@@ -1,0 +1,36 @@
+UPDATE Products
+SET ImageUrl = 'images/products/9cc468fd-7810-4608-9fed-12ccc67fcadf.jpg'
+WHERE Id = 1;
+UPDATE Products
+SET ImageUrl = 'images/products/be9ae80a-ec47-4d7e-aff1-664fdced28aa.webp'
+WHERE Id = 2;
+UPDATE Products
+SET ImageUrl = 'images/products/c338c493-9883-412c-841f-a6d676faede9.webp'
+WHERE Id = 3;
+UPDATE Products
+SET ImageUrl = 'images/products/448bb3fe-8524-4dfa-9903-31694febe162.jpg'
+WHERE Id = 4;
+UPDATE Products
+SET ImageUrl = 'images/products/7a5353a9-2b93-4a53-89b9-d15f28091547.webp'
+WHERE Id = 5;
+UPDATE Products
+SET ImageUrl = 'images/products/6a0f1121-06ba-400c-bc8c-420eb3ada944.webp'
+WHERE Id = 6;
+UPDATE Products
+SET ImageUrl = 'images/products/379d45c7-f200-4784-bc62-f53686754729.png'
+WHERE Id = 7;
+UPDATE Products
+SET ImageUrl = 'images/products/af9c9d79-338c-4d7f-92b5-031b8a056fcf.webp'
+WHERE Id = 8;
+UPDATE Products
+SET ImageUrl = 'images/products/c8bd5ac1-8d1c-4336-80f0-db2cff58dd27.jpg'
+WHERE Id = 9;
+UPDATE Products
+SET ImageUrl = 'images/products/8ebfb0a7-be78-4dcd-a358-82547c564524.png'
+WHERE Id = 10;
+UPDATE Products
+SET ImageUrl = 'images/products/f7365eed-670f-4380-962f-65e1d855f3d0.jpg'
+WHERE Id = 11;
+UPDATE Products
+SET ImageUrl = 'images/products/c60710e8-72bb-46cc-8557-71f409218fe1.jpeg'
+WHERE Id = 12;
