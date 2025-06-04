@@ -27,7 +27,7 @@
 
                     <div class="card-footer d-flex justify-content-center gap-2">
                         <a href="#" class="btn btn-sm btn-outline-dark">Chi tiết</a>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Thêm vào giỏ</a>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id" class="btn btn-sm btn-outline-primary">Thêm vào giỏ</a>
                     </div>
 
                     <!-- Hiển thị tên thể loại/danh mục -->
