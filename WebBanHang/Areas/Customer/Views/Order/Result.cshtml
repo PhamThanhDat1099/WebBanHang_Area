@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container mt-3">
+    <h4>Order result</h4>
+    <div class="alert alert-info">
+        Your Order has been sent to our shop! Thank you for shopping.
+        <a href="/customer/Home/Index">Go to shopping</a>
+    </div>
+</div>
+
+@if (TempData["success"] != null)
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire('Thành công', '@TempData["success"]', 'success');
+    </script>
+}

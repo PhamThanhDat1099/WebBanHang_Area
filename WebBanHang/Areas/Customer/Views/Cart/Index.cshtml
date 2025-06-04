@@ -1,0 +1,105 @@
+﻿@model WebBanHang.Areas.Customer.Models.Cart
+
+<section class="bg-light my-5">
+    <div class="container">
+        <div class="row">
+            <!-- cart -->
+            <div class="col-lg-9">
+                <div class="card border shadow-0">
+                    <div class="m-4">
+                        <h4 class="card-title mb-4">Your shopping cart</h4>
+                        @foreach (var item in Model.Items)
+                        {
+                            <form asp-action="Update" method="post">
+                                <input type="hidden" name="productId" value="@item.Product.Id" />
+                                <div class="row gy-3 mb-4">
+                                    <div class="col-lg-5">
+                                        <div class="me-lg-5">
+                                            <div class="d-flex">
+                                                <img src="/@item.Product.ImageUrl" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                                                <div>
+                                                    <a href="#" class="nav-link">@item.Product.Name</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                                        <div>
+                                            <input type="number" name="qty" value="@item.Quantity" class="form-control" min="1" />
+                                        </div>
+                                        <div class="mt-2">
+                                            <text class="h6">@string.Format("${0:#,##0}", item.Product.Price)</text>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                                        <div class="float-md-end">
+                                            <button type="submit" class="btn btn-light border text-primary">
+                                                Update
+                                            </button>
+                                            <a asp-action="Remove"
+                                               asp-route-productId="@item.Product.Id"
+                                               onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?')"
+                                               class="btn btn-light border text-danger">
+                                                Remove
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- cart -->
+            <!-- summary -->
+            <div class="col-lg-3">
+                <div class="card shadow-0 border">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2">@string.Format("${0:#,##0}", Model.Total)</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Discount:</p>
+                            <p class="mb-2 text-success">- $0</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">TAX:</p>
+                            <p class="mb-2">$0.00</p>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2 fw-bold">@string.Format("${0:#,##0}", Model.Total)</p>
+                        </div>
+                        <div class="mt-3">
+                            <a href="/Customer/Order/Index" class="btn btn-success w-100 shadow-0 mb-2">Make Purchase</a>
+                            <a href="/Customer/Home/Index" class="btn btn-light w-100 border mt-2">Back to shop</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- summary -->
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (TempData["success"] != null)
+        {
+            <text>
+                Swal.fire('Thành công', '@TempData["success"]', 'success');
+            </text>
+        }
+        @if (TempData["error"] != null)
+        {
+            <text>
+                Swal.fire('Lỗi', '@TempData["error"]', 'error');
+            </text>
+        }
+    </script>
+}

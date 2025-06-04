@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<WebBanHang.Models.Product>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,30 +6,29 @@
     <h1 class="display-4">Welcome</h1>
     <p>
         Learn about <a href="https://docs.microsoft.com/aspnet/core">
-            building Web apps with ASP.NET
-            Core
+            building Web apps with ASP.NET Core
         </a>.
     </p>
 </div>
+
 <div class="row products">
-    <partial name="_ProductPartial" />
+    <partial name="_ProductPartial" model="Model" />
 </div>
-<div class="text-center">
+
+<div class="text-center mt-3">
     <button id="btnLoadMore" class="btn btn-primary">Load More</button>
 </div>
-<!--viet script de su dung ajax voi thu vien JQuery --->
-@section Scripts{
+
+@section Scripts {
     <script>
         let currentPage = 2;
         $("#btnLoadMore").click(function () {
-            //dung ham ajax cua JQuery
             $.ajax({
-                url: "Customer/Home/LoadMore",
+                url: "/Customer/Home/LoadMore",
                 data: { page: currentPage },
                 success: function (data) {
                     if ($.trim(data) === '')
                         $("#btnLoadMore").hide();
-
                     else
                         $(".products").append(data);
                 }
