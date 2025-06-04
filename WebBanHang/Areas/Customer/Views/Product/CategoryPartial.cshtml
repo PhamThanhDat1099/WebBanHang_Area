@@ -1,11 +1,10 @@
 ﻿@model List<WebBanHang.Areas.Customer.Models.CategoryWithCountVM>
 
-
 <ul class="list-group">
     @foreach (var c in Model)
     {
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="@Url.Action("Index", "Product", new { catid = c.Id })" class="text-decoration-none text-dark">
+            <a href="#" class="text-decoration-none text-dark category-link" data-id="@c.Id">
                 @c.Name
             </a>
             <span class="badge bg-secondary rounded-pill">@c.ProductCount</span>
@@ -13,3 +12,15 @@
     }
 </ul>
 
+<!-- Gắn sự kiện click khi danh sách được nạp bằng Ajax -->
+<script>
+    $(document).ready(function () {
+        $('.category-link').click(function (e) {
+            e.preventDefault();
+            var catId = $(this).data('id');
+            $.get('/Customer/Product/GetProductsByCategory?catid=' + catId, function (data) {
+                $('#Product-List').html(data);
+            });
+        });
+    });
+</script>

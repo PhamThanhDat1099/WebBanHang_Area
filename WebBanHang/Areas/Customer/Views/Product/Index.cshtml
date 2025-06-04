@@ -1,5 +1,4 @@
 ﻿@model List<WebBanHang.Models.Product>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -16,14 +15,30 @@
     <!-- Cột phải: Danh sách sản phẩm -->
     <div class="col-md-9">
         <h3>SẢN PHẨM</h3>
-        <partial name="_ProductPartial" model="Model" />
+        <div id="Product-List">
+            <partial name="_ProductPartial" model="Model" />
+        </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#Category-List").load("/Customer/Product/GetCategory");
+            // Load danh mục ban đầu
+            $("#Category-List").load("/Customer/Product/GetCategory", function () {
+                // Gắn sự kiện click sau khi load xong
+                attachCategoryEvents();
+            });
+
+            function attachCategoryEvents() {
+                $(".category-link").click(function (e) {
+                    e.preventDefault();
+                    let catid = $(this).data("id");
+                    $.get("/Customer/Product/GetProductsByCategory?catid=" + catid, function (data) {
+                        $("#Product-List").html(data);
+                    });
+                });
+            }
         });
     </script>
 }

@@ -23,31 +23,38 @@ namespace WebBanHang.Areas.Customer.Controllers
         // Hiển thị danh sách sản phẩm theo danh mục (mặc định catid = 1)
         public IActionResult Index(int catid = 1)
         {
-            // Truy xuất danh sách sản phẩm có CategoryId = catid và kèm theo thông tin danh mục
             var dsSanPham = _db.Products
-                               .Include(x => x.Category) // Truy vấn nối với bảng Category
-                               .Where(x => x.CategoryId == catid) // Lọc theo danh mục
+                               .Include(x => x.Category)
+                               .Where(x => x.CategoryId == catid)
                                .ToList();
 
-            // Trả về view kèm danh sách sản phẩm theo danh mục
             return View(dsSanPham);
         }
 
-        // Trả về danh sách danh mục + số lượng sản phẩm tương ứng, dùng cho sidebar hoặc menu
+        // Trả về danh sách danh mục + số lượng sản phẩm tương ứng
         public IActionResult GetCategory()
         {
-            // Lấy danh sách danh mục và đếm số sản phẩm trong từng danh mục
             var dsTheLoai = _db.Categories
                 .Select(c => new CategoryWithCountVM
                 {
-                    Id = c.Id, // ID danh mục
-                    Name = c.Name, // Tên danh mục
-                    ProductCount = _db.Products.Count(p => p.CategoryId == c.Id) // Số lượng sản phẩm thuộc danh mục này
+                    Id = c.Id,
+                    Name = c.Name,
+                    ProductCount = _db.Products.Count(p => p.CategoryId == c.Id)
                 })
                 .ToList();
 
-            // Trả về PartialView tên "CategoryPartial" chứa danh sách danh mục kèm số lượng
             return PartialView("CategoryPartial", dsTheLoai);
+        }
+
+        // PartialView sản phẩm theo danh mục (cho Ajax)
+        public IActionResult GetProductsByCategory(int catid)
+        {
+            var dsSanPham = _db.Products
+                               .Include(x => x.Category)
+                               .Where(x => x.CategoryId == catid)
+                               .ToList();
+
+            return PartialView("_ProductPartial", dsSanPham);
         }
     }
 }
